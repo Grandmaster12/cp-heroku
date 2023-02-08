@@ -1,0 +1,47 @@
+Path of the Berserker Barbarian
+Path of the Totem Warrior Barbarian
+College of Lore Bard
+College of Valor Bard
+Knowledge Domain Cleric
+Nature Domain Cleric
+Light Domain Cleric
+Life Domain Cleric
+Tempest Domain Cleric
+Trickery Domain Cleric
+War Domain Cleric
+Circle of the Moon Druid
+Circle of the Land Druid
+Champion Fighter
+Battlemaster Fighter
+Eldritch Knight
+Way of the Open Hand Monk
+Way of the Shadow Monk
+Way of the Four Elements Monk
+Oath of Devotion Paladin
+Oath of the Ancients Paladin
+Oath of Vengeance Paladin
+Oathbreaker Paladin
+Beast Master Ranger
+Hunter Ranger
+Arcane Trickster Rogue
+Assassin Rogue
+Thief Rogue
+Wild Magic Sorcerer
+Draconic Bloodline Sorcerer
+Pact of the Chain Warlock of the Great Old One
+Pact of the Chain Warlock of the Archfey
+Pact of the Chain Warlock of the Fiend
+Pact of the Blade Warlock of the Great Old One
+Pact of the Blade Warlock of the Archfey
+Pact of the Blade Warlock of the Fiend
+Pact of the Tome Warlock of the Great Old One
+Pact of the Tome Warlock of the Archfey
+Pact of the Tome Warlock of the Fiend
+Abjuration Wizard
+Conjuration Wizard
+Divination Wizard
+Evocation Wizard
+Transmutation Wizard
+Enchantment Wizard
+Illusion Wizard
+Necromancy Wizard

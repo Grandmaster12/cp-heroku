@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block head %}Character Editor{% endblock %}
+
+{% block body %}
+<div class = "edit_char">
+    <h1 style="text-align: center;">Edit Character</h1>
+    <!-- style=" text-align: left; width: 100%; float: right;" -->
+    <div class="form" style="text-align: auto;">
+        <form action="/edit/{{char.id}}" method="POST">
+            <label for="fname">Name:</label><br>
+            <input type="text" name="name" id="new_name" value = "{{char.char_name}}"><br><br>
+
+            <label for="fname">Class:</label><br>
+            <input type="text" name="class" id="new_class" value = "{{char.char_class}}"><br><br>
+
+            <label for="fname">Race:</label><br>
+            <input type="text" name="race" id="new_race" value = "{{char.char_race}}"><br><br>
+
+            <label for="fname">Background:</label><br>
+            <input type="text" name="bg" id="new_background" value = "{{char.char_bg}}"><br><br>
+
+            <label for="fname">Motivation:</label><br>
+            <input type="text" name="motiv" id="new_motiv" value = "{{char.char_motiv}}"><br><br>
+
+            <label for="fname">Alignment:</label><br>
+            <input type="text" name="align" id="new_align" value = "{{char.char_align}}"><br><br>
+
+            <label for="fname">Personality:</label><br>
+            <input type="text" name="personality" id="new_personality" value = "{{char.char_personality}}"><br><br>
+
+            <label for="fname">Mood:</label><br>
+            <input type="text" name="mood" id="new_mood" value = "{{char.char_mood}}"><br><br>
+
+            <input style="text-align: center" type = "submit" value="Edit Character"/>
+        </form>
+    </div>
+    <div>
+        
+    </div>
+</div>
+{% endblock %}

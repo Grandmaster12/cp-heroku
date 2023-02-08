@@ -1,0 +1,18 @@
+Acolyte
+Charlatan
+Criminal
+Spy (Criminal variant)
+Entertainer
+Gladiator (Entertainer variant)
+Folk Hero
+Guild Artisan
+Guild Merchant (Artisan variant)
+Hermit
+Noble
+Knight (Noble variant)
+Outlander
+Sage
+Sailor
+Pirate (Sailor variant)
+Soldier
+Urchin

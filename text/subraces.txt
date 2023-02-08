@@ -1,0 +1,25 @@
+Hill Dwarf
+Mountain Dwarf
+Duergar (Grey Dwarf)
+High Elf
+Wood Elf
+Drow (Dark Elf)
+Lightfoot Halfling
+Stout Halfling
+Human
+Variant Human
+Black Dragonborn
+Blue Dragonborn
+Brass Dragonborn
+Bronze Dragonborn
+Copper Dragonborn
+Gold Dragonborn
+Green Dragonborn
+Red Dragonborn
+Silver Dragonborn
+White Dragonborn
+Forest Gnome
+Rock Gnome
+Half-Elf
+Half-Orc
+Tiefling

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+<h1 style="text-align: center;">D&D Character Randomiser</h1>
+
+<div class = "content">
+    <h2>Create new character:</h2>
+    <p>All character attribute fields are optional - any blank fields will be filled in with random options</p>
+    <p>Note: for Race, please only choose from one of the races in the PHB, namely: Dwarf, Elf, Halfling, Human, Dragonborn, Gnome, Half-Elf, Half-Orc, or Tiefling</p>
+    <div class="form">
+        <form action="/" method="POST" id="init_char">
+            <label for="name">Name:</label><br>
+            <input type="text" name="init_name" id="init_name"><br>
+
+            <label for="class">Class or subclass:</label><br>
+            <input type="text" name="init_class" id="init_class"><br>
+
+            <label for="race">Race (not Subrace):</label><br>
+            <input type="text" name="init_race" id="init_race"><br>
+
+            <label for="bg">Background:</label><br>
+            <input type="text" name="init_bg" id="init_bg" ><br>
+
+            <label for="motiv">Motivation:</label><br>
+            <input type="text" name="init_motiv" id="init_motiv"><br>
+
+            <label for="align">Alignment:</label><br>
+            <input type="text" name="init_align" id="init_align"><br>
+
+            <label for="personality">Personality:</label><br>
+            <input type="text" name="init_personality" id="init_personality"><br>
+
+            <label for="mood">Mood:</label><br>
+            <input type="text" name="init_mood" id="init_mood"><br>
+
+            <p>Choose a number of characters to generate. 
+                Any attributes that you specify in one of the fields will remain the same across this set of characters you generate.</p>
+
+            <label for="fname">Number of Characters:</label><br>
+            <input type="number" name="num_chars" id="num_chars"><br>
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-primary">Generate!</button>
+            </div>
+            <!-- <input type = "submit" value="Create!"/> -->
+        </form>
+    </div>
+    <br>
+
+    <h2>Current Character List</h2>
+
+    {% if chars|length < 1 %}
+    <h4 style="text-align: center;">Your character list is waiting to be populated! <br> Click the button above.</h4>
+
+    {% else %}
+    <div style="padding:auto;" class="table">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Race</th>
+                <th>Background</th>
+                <th>Motivation</th>
+                <th>Alignment</th>
+                <th>Personality</th>
+                <th>Mood</th>
+                <th>Added</th>
+                <th>Actions</th>       
+            </tr>
+            {% for char in user.characters %}
+                <tr>
+                    <td>{{ char.char_name }}</td>
+                    <td>{{ char.char_class }}</td>
+                    <td>{{ char.char_race }}</td>
+                    <td>{{ char.char_bg }}</td>
+                    <td>{{ char.char_motiv }}</td>
+                    <td>{{ char.char_align }}</td>
+                    <td>{{ char.char_personality }}</td>
+                    <td>{{ char.char_mood }}</td>
+                    <td>{{ char.date.date() }}</td>
+                    <td>
+                        <a href="/delete/{{char.id}}">Delete</a>
+                        <br>
+                        <a href="/edit/{{char.id}}">Edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
