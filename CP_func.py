@@ -1,6 +1,4 @@
 import random, re
-import numpy as np
-import pandas as pd
 
 # file names
 files = ["classes", "races", "backgrounds", "subraces", "subclasses", "personalities", "moods"]
