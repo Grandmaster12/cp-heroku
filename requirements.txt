@@ -1,7 +1,6 @@
 Flask
 Flask_Login
 flask_sqlalchemy
-numpy
-pandas
+gunicorn
 SQLAlchemy
 Werkzeug
