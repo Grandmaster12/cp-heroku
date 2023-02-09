@@ -16,7 +16,8 @@ def login():
         user = models.User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):
-                flash("Login successful!", category ="success")
+                first = user.first_name
+                flash(f"Login successful! Welcome back, {first}!", category ="success")
                 login_user(user, remember=True)
                 return redirect(url_for("views.index"))
             else:

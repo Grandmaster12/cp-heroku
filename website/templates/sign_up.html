@@ -1,8 +1,9 @@
 {% extends "base.html" %}
-{% block head %}Sign Up{% endblock %}
+{% block head %}Sign Up | D&D Character Generator{% endblock %}
 
 {% block body %}
 <form method="POST">
+    <br>
     <h3 style="text-align: center;">Sign Up</h3>
     <!-- Email Address -->
     <div class="form-group">
@@ -50,5 +51,6 @@
     </div>
     <br>
     <button type="submit" class="btn btn-primary">Create Account</button>
+    <p style="font-style: oblique;">Already have an account? Log In <a href="/login">here</a></p>
 </form>
 {% endblock %}
