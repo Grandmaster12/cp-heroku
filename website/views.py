@@ -58,6 +58,7 @@ def delete(id):
         except:
             flash("There was a problem with deleting that character", category="danger")
     flash("Character deleted!", category="success")
+
 @views.route("/edit/<int:id>", methods=["GET", "POST"])
 @login_required
 def edit(id):
@@ -78,4 +79,4 @@ def edit(id):
         except:
             flash("There was a problem editing character attributes")
     else:
-        return render_template("edit.html", char = edit_char)
+        return render_template("edit.html", char = edit_char, user=current_user)
