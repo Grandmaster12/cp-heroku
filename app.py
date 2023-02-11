@@ -6,6 +6,6 @@ CP = create_app()
 #     db = SQLAlchemy(CP)
 
 if __name__ == "__main__":
-    CP.run(debug=True, port=5001)
+    CP.run(debug=True)
 
     
