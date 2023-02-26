@@ -1,3 +1,7 @@
+<!-- 
+    The base template that retains the consistency in constant features across all the pages,
+    Such as the navigation bar, the footer (when I eventually add it), handling flashed messages, etc.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,13 +35,19 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav">
-                {% if user.is_authenticated %}
                 <a class="nav-item nav-link" id="home" href="/">Home</a>
+                <a class="nav-item nav-link" id="home" href="/about">About</a>
+                <a class="nav-item nav-link" id="home" href="/generator">Characters</a>
+                <a class="nav-item nav-link" id="home" href="/contact">Contact</a>
+                {% if user.is_authenticated %}
                 <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
                 {% else %}
                 <a class="nav-item nav-link" id="login" href="/login">Login</a>
                 <a class="nav-item nav-link" id="sign_up" href="/sign_up">Sign Up</a>
                 {% endif %}
+                <!--  
+                    Add Profile button on far right
+                -->
             </div>
         </div>
     </nav>

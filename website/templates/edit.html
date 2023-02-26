@@ -2,10 +2,15 @@
 {% block head %}Character Editor | D&D Character Generator{% endblock %}
 
 {% block body %}
+<!--
+    Editor page, to allow users to change some of the saved features and values for their characters
+-->
 <div class = "edit_char">
     <h1 style="text-align: center;">Edit Character</h1>
-    <!-- style=" text-align: left; width: 100%; float: right;" -->
     <div class="form" style="text-align: auto;">
+        <!--
+            This form calls the Edit end point that updates the stored values in the DB with the new values.
+        -->
         <form action="/edit/{{char.id}}" method="POST">
             <label for="fname">Name:</label><br>
             <input type="text" name="name" id="new_name" value = "{{char.char_name}}"><br><br>

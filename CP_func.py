@@ -1,7 +1,11 @@
-import random, re
+# code file that imports the pre-written data, runs the randomiser, and makes the OpenAI calls
+import random, re, openai 
+openai.api_key = "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"
 
 # file names
 files = ["classes", "races", "backgrounds", "subraces", "subclasses", "personalities", "moods"]
+
+# store the information from the Player's Handbook and options for personality, mood, and motivation
 database = {}
 
 # import files from the list
@@ -140,7 +144,9 @@ def new_char(input_params, num_char):
     else:
         num_char = int(num_char)
 
+    # final list of characters to be returned
     chars_out = []
+
     for _ in range(num_char): 
         # tuple assignment for all input parameters
         init_name, init_class, init_race, init_bg, init_motiv, init_align, init_personality, init_mood = input_params
@@ -151,6 +157,9 @@ def new_char(input_params, num_char):
         sex = random.choice(["Male", "Female"])
         new_race = init_race if init_race not in invalid else random.choice(database["races"])
         subrace =  random.choice([subs for subs in database["subraces"] if new_race.title() in subs])
+
+        # if user inputs were not blank or space, save that as the character feature
+        # otherwise, make a random choice from the saved information
         char = {
             "Name": init_name if init_name not in invalid else name_from_race(new_race.lower(), sex),
             "Race": subrace,
@@ -165,9 +174,11 @@ def new_char(input_params, num_char):
 
     return chars_out
 
+
 def name_from_race(race, sex):
     """ 
-    A function that generates the name of a character based on their race, using the characteristic race names.
+    A function that generates the name of a character based on their race.
+    Uses the standard race name options and conventions from the PHB
     
     Input
     -----
@@ -213,7 +224,7 @@ def name_from_race(race, sex):
             return name_from_race("human", sex)
         
     elif race == "half-orc":
-        # half-orcs also choose either orc-ish names or human names according to some probability, so I chose 75% orc-ish, also arbitrarily
+        # half-orcs also choose either orc-ish names or human names, so I chose 75% orc-ish names, also arbitrarily
         if random.random() > 0.75:
             return random.choice(race_names["half-orc"][sex])
         else:
@@ -222,11 +233,12 @@ def name_from_race(race, sex):
     elif race == "tiefling":
         """
         Tieflings can take either: 
-        Infernal names related to their bloodline,
-        A name of a concept/virtue that they try to embody with their lives, or
-        A name common to the culture theiy grew up in.
+        - Infernal names related to their bloodline,
+        - A name of a concept/virtue that they try to embody with their lives, or
+        - A name characteristic to the culture theiy grew up in.
         
-        I then assigned a 20% chance to take a different race's name type, and then a 50-50 chance to have either a demonic or concept name
+        I then assigned a 20% chance to take a different race's naming convention
+        and from the remaining 80%, a 50% chance to have either an infernal or conceptual name
         """
         if random.random() < 0.2:
             new_choice = random.choice([race.lower() for race in database["races"] if race != "Tiefling"])
@@ -237,7 +249,7 @@ def name_from_race(race, sex):
             else:
                 return random.choice(race_names["tiefling"]["Concept"])
     else:
-        # for all other races, their names follow the predictable "First Last" structure
+        # for all other races, their names follow the "First Last" structure
         first, last = choose_name(race_names[race], sex)
         return f"{first} {last}"
 
@@ -268,3 +280,16 @@ def sub_from_main(subset, mainset):
     main = random.choice(mainset)
     sub = random.choice([subs for subs in subset if main in subs])
     return sub
+
+# function that makes the respective calls to OpenAI's API depending on the desired type of output
+def OpenAIcall(prompt_in): #next step - takes type and prompt as input
+    
+    text_response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt= prompt_in,
+        temperature=0.6,
+        max_tokens = 1000
+        )
+    print(text_response["choices"][0]["text"])
+    return text_response["choices"][0]["text"].replace('\n', '')
+
