@@ -1,0 +1,207 @@
+{% extends "base.html" %} {% block head %}Generator | D&D Character Generator{%
+endblock %} {% block body %}
+<h1 style="text-align: center">D&D Character Manager and Generator</h1>
+
+<!--
+  The main page with all the functionality for character managing, viewing, and generating.
+-->
+<div class="content">
+  <h2>Current Character List</h2>
+
+  <!--
+    If the user has no characters created, show a message instead of the table
+  -->
+  {% if user.characters|length < 1 %}
+  <h4 style="text-align: center">
+    Your character list is waiting to be populated! <br />
+    Click the Generate button below
+  </h4>
+
+  <!--
+    Otherwise, when the user has at least one character, create the table and display them
+  -->
+  {% else %}
+  <div style="padding: auto" class="table">
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Class</th>
+        <th>Race</th>
+        <th>Background</th>
+        <th>Motivation</th>
+        <th>Alignment</th>
+        <th>Personality</th>
+        <th>Mood</th>
+        <th>Actions</th>
+      </tr>
+      {% for char in user.characters %}
+      <tr>
+        <td>{{ char.char_name }}</td>
+        <td>{{ char.char_class }}</td>
+        <td>{{ char.char_race }}</td>
+        <td>{{ char.char_bg }}</td>
+        <td>{{ char.char_motiv }}</td>
+        <td>{{ char.char_align }}</td>
+        <td>{{ char.char_personality }}</td>
+        <td>{{ char.char_mood }}</td>
+        <td>
+          <a href="/delete/{{char.id}}">Delete</a>
+          <br />
+          <a href="/edit/{{char.id}}">Edit</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    <p style="text-align: right"><a href="/delete-all">Delete All</a></p>
+  </div>
+  {% endif %}
+  <br />
+  <!-- 
+    Describing the methods of character creation
+  -->
+  <h2>Character Creation</h2>
+  <p>
+    There are two possible options to facilitate character creation:
+    Randomisation from the PHB (Player's Handbook), and AI Generation using
+    OpenAI's GPT3 model.
+  </p>
+  <br />
+
+  <h3>PHB Randomisation</h3>
+  <p>
+    All character attribute fields are <b>optional</b> - any blank fields will
+    be filled in with random options
+  </p>
+  <p>
+    Note: for Race, please only choose from one of the races in the PHB, namely:
+    Dwarf, Elf, Halfling, Human, Dragonborn, Gnome, Half-Elf, Half-Orc, or
+    Tiefling
+  </p>
+  <!--
+    Creating the generator form using the basic random choice functionality
+  -->
+  <div class="generator">
+    <form action="/generator" method="POST" id="init_char">
+      <label for="name">Name:</label><br />
+      <input type="text" name="init_name" id="init_name" /><br /><br />
+
+      <label for="class">Class or subclass:</label><br />
+      <input type="text" name="init_class" id="init_class" /><br /><br />
+
+      <label for="race">Race (not Subrace):</label><br />
+      <input type="text" name="init_race" id="init_race" /><br /><br />
+
+      <label for="bg">Background:</label><br />
+      <input type="text" name="init_bg" id="init_bg" /><br /><br />
+
+      <label for="motiv">Motivation:</label><br />
+      <input type="text" name="init_motiv" id="init_motiv" /><br /><br />
+
+      <label for="align">Alignment:</label><br />
+      <input type="text" name="init_align" id="init_align" /><br /><br />
+
+      <label for="personality">Personality:</label><br />
+      <input
+        type="text"
+        name="init_personality"
+        id="init_personality"
+      /><br /><br />
+
+      <label for="mood">Mood:</label><br />
+      <input type="text" name="init_mood" id="init_mood" /><br /><br />
+
+      <p>
+        Choose a number of characters to generate. <br />
+        Any attributes that you specify in one of the fields will remain the
+        same across the number of characters you generate.
+      </p>
+
+      <label for="fname">Number of Characters:</label><br />
+      <input type="number" name="num_chars" id="num_chars" /><br />
+      <div style="text-align: center">
+        <button type="submit" class="btn btn-primary" id="random">
+          Generate!
+        </button>
+      </div>
+      <br />
+    </form>
+  </div>
+
+  <!--
+    Describing the usage of the calls to GPT-3, explaining how they would be used,
+    and describing the input template which relates to prompt specification
+  -->
+  <h3>AI Generation</h3>
+  <p>
+    This section is where you can fill in a text prompt (if you're unfamiliar,
+    it's like giving an instruction to the AI) and the AI's response will be
+    saved and displayed.
+  </p>
+  <br />
+
+  <div class="AI_call">
+    <form action="/generator-ai" method="POST" id="char_rand">
+      <label for="text_cat"
+        >Select a category for which you want generated text:</label><br />
+
+      <select name="text_cat" id="text_cat">
+        <option value="background">Background</option>
+        <option value="motivation">Motivation</option>
+        <option value="physical">Physical Description</option>
+        <option value="personality">Personality</option>
+        <option value="mood">Mood</option>
+        <option value="other">Other</option>
+      </select> <br /><br />
+
+      <p id="cat_exp">
+        The call to the AI will be structured as follows: <br />
+        "Create detailed [category] description for a Dungeons & Dragons character
+        using the following information: [submitted prompt]" 
+        meaning you only need to include the relevant information that you 
+        want the AI to consider in its response.<br />
+        Except for the "Other" selection which will have no template included
+        if you have a clear idea of the kind of text output you want 
+        and how to describe a detailed prompt (generally not advised).
+      </p>
+      <label for="prompt">Prompt for AI call:</label> <br />
+      <textarea id="prompt" name="user_prompt">Relevant info the AI must consider</textarea><br />
+        <!--
+            Submit button needs a confirmation prompt - uses 1 of their calls, and in case of mistake.
+        -->
+      <div style="text-align: center">
+        <button type="submit" class="btn btn-primary" id="AI">AI Call!</button>
+      </div>
+      <br /><br />
+    </form>
+  </div>
+
+  <!-- Output display section -->
+  <!-- Will update using JavaScript depending on the response format they specified, either text or image -->
+  <div class="AI Output">
+    <h4>AI Outputs</h4>
+    <p style="text-align: center">
+      You have used {{ user.ai_texts|length }} AI calls so far!
+    </p>
+    {% if user.ai_texts|length > 0 %}
+    <div style="padding: auto" class="table">
+      <table>
+        <tr>
+          <th>Call no.</th>
+          <th>Prompt (in bold) and continuation</th>
+        </tr>
+
+        {% for ind, text in texts %}
+        <tr>
+          <td>{{ ind+1 }}</td>
+          <td><b>{{ text.prompt }}</b> {{ text.content }}</td>
+          <td></td>
+        </tr>
+
+        {% endfor %}
+      </table>
+    </div>
+    {% endif %}
+  </div>
+</div>
+<br />
+{% endblock %}
