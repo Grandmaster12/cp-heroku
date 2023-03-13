@@ -6,3 +6,4 @@ SQLAlchemy
 Werkzeug
 openai
 boto
+dotenv
