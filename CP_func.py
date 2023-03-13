@@ -2,12 +2,13 @@
 import random, re, openai, os
 from boto.s3.connection import S3Connection
 
-try: 
-    openai.api_key = S3Connection(os.environ["OPENAI_KEY"])
-except:
-    from dotenv import load_dotenv
-    load_dotenv()
-    openai.api_key = os.getenv("OPENAI_KEY")
+# use for Heroku deployment
+openai.api_key = S3Connection(os.environ["OPENAI_KEY"])
+
+# uncomment and use for local testing
+# from dotenv import load_dotenv
+# load_dotenv()
+# openai.api_key = os.getenv("OPENAI_KEY")
 
 # file names
 files = ["classes", "races", "backgrounds", "subraces", "subclasses", "personalities", "moods"]
