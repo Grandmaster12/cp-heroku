@@ -11,15 +11,7 @@ views = Blueprint("views", __name__)
 # these first three pages will be fairly static and won't change much
 @views.route("/")
 def home():
-    return render_template("home.html", user=current_user)
-
-@views.route("/about")
-def about():
-    return render_template("about.html", user=current_user)
-
-@views.route("/contact")
-def contact():
-    return render_template("contact.html", user=current_user)
+    return redirect(url_for("views.generate"))
 
 # generate characters using the pre-added information, from the PHB and the motivations, personalities, and moods.
 @views.route("/generator", methods=["POST", "GET"])
