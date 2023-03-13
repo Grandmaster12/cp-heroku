@@ -1,6 +1,12 @@
 # code file that imports the pre-written data, runs the randomiser, and makes the OpenAI calls
 import random, re, openai, os
-openai.api_key = os.getenv("openai_api_key")
+from dotenv import load_dotenv
+
+if os.getenv("openai_api_key"):
+    openai.api_key = os.getenv("openai_api_key")
+else:
+    load_dotenv()
+    openai.api_key = os.getenv("API_KEY")
 
 # file names
 files = ["classes", "races", "backgrounds", "subraces", "subclasses", "personalities", "moods"]
