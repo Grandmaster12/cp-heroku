@@ -1,10 +1,11 @@
 # code file that imports the pre-written data, runs the randomiser, and makes the OpenAI calls
 import random, re, openai, os
 from dotenv import load_dotenv
+from boto.s3.connection import S3Connection
 
-if os.getenv("openai_api_key"):
-    openai.api_key = os.getenv("openai_api_key")
-else:
+try: 
+    openai.api_key = S3Connection(os.environ['S3_KEY'])
+except:
     load_dotenv()
     openai.api_key = os.getenv("API_KEY")
 
