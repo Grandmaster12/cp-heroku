@@ -5,3 +5,4 @@ gunicorn
 SQLAlchemy
 Werkzeug
 openai
+boto
