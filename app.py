@@ -4,5 +4,3 @@ from website import create_app
 CP = create_app()
 if __name__ == "__main__":
     CP.run()
-
-    
