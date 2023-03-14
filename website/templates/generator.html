@@ -1,5 +1,6 @@
 {% extends "base.html" %} {% block head %}Generator | D&D Character Generator{%
 endblock %} {% block body %}
+<br />
 <h1 style="text-align: center">D&D Character Manager and Generator</h1>
 
 <!--
@@ -154,17 +155,17 @@ endblock %} {% block body %}
       </select> <br /><br />
 
       <p id="cat_exp">
-        The call to the AI will be structured as follows: <br />
+        The call to the AI will be structured as follows: <br /><br />
         "Create detailed [category] description for a Dungeons & Dragons character
-        using the following information: [submitted prompt]" 
+        using the following information: [submitted prompt]," <br />
         meaning you only need to include the relevant information that you 
-        want the AI to consider in its response.<br />
+        want the AI to consider in its response.<br /><br />
         Except for the "Other" selection which will have no template included
         if you have a clear idea of the kind of text output you want 
         and how to describe a detailed prompt (generally not advised).
       </p>
       <label for="prompt">Prompt for AI call:</label> <br />
-      <textarea id="prompt" name="user_prompt">Relevant info the AI must consider</textarea><br />
+      <textarea id="prompt" rows="4" cols="100" name="user_prompt">Relevant info the AI must consider</textarea><br />
         <!--
             Submit button needs a confirmation prompt - uses 1 of their calls, and in case of mistake.
         -->
