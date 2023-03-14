@@ -1,2 +1,2 @@
 # cp-heroku
-Deploying CP D&amp;D Randomiser in Heroku
+Deploying D&amp;D Character Creativity assistant in Heroku
