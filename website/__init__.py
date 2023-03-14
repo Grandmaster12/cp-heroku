@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
 
-# __init__ creates a python package out of this notebook.
+# __init__ creates a python package out of this folder
 db = SQLAlchemy()
 DB_NAME = "CPDB.db"
 
@@ -15,9 +15,6 @@ def create_app():
     CP.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
     CP.config["SQLALCHEMY_TRACE_MODIFICATIONS"] = True
 
-    # create the database and link it to the app CP
-    db.init_app(CP)
-
     # import the Python page viewers and endpoints
     # auth = authentication pages, views = everything else, models = DB models
     
@@ -28,7 +25,12 @@ def create_app():
     CP.register_blueprint(views, url_prefix="/")
     CP.register_blueprint(auth, url_prefix="/")
     
+    # create the database and link it to the app CP
+    db.init_app(CP)
     with CP.app_context():
+        
+        # if db already exists, for now, get rid of it and create new tables
+        db.drop_all()
         db.create_all()
 
     login_manager = LoginManager()
