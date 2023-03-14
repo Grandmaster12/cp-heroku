@@ -1,9 +1,8 @@
 # code file that imports the pre-written data, runs the randomiser, and makes the OpenAI calls
 import random, re, openai, os
-from boto.s3.connection import S3Connection
 
 # use for Heroku deployment
-openai.api_key = S3Connection(os.environ["OPENAI_KEY"])
+openai.api_key = os.environ["OPENAI_KEY"]
 
 # uncomment and use for local testing
 # from dotenv import load_dotenv
